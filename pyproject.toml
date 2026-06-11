@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heart-disease-risk-prediction"
+version = "0.1.0"
+description = "Reproducible clinical ML workflow for exploratory heart disease risk modeling."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.0",
+  "scikit-learn>=1.5",
+]
+
+[project.scripts]
+heart-disease-pipeline = "heart_disease_risk_prediction.cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

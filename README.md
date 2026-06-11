@@ -1,127 +1,158 @@
-# Heart Disease Risk Prediction with Machine Learning
+# Heart Disease Risk Prediction
 
-**Health Analytics | Machine Learning | Clinical Risk Factors | Model Evaluation | Responsible AI**
+**Health Analytics | Machine Learning Evaluation | Responsible AI | Reproducible Portfolio Project**
 
-This project analyzes a clinical heart disease dataset with 918 observations and 11 predictive variables to identify patterns associated with heart disease and compare classification models.
+This repository turns a classic heart disease dataset into a more production-ready analytical asset: a reproducible ML pipeline, a static executive dashboard, documented data-quality checks, and model evaluation outputs that go beyond a single accuracy score.
 
-It is designed as a portfolio case combining exploratory analysis, clinical risk-factor interpretation, machine learning evaluation and responsible-use limitations. It is not a diagnostic tool and should not be used for clinical decision-making without external validation, medical oversight and proper governance.
+The goal is not to build a diagnostic product. The goal is to show strong analytical engineering, clearer ML validation, and responsible interpretation in a healthcare context.
 
-## Power BI style dashboard
+## Live dashboard
 
-**[Open the interactive dashboard →](https://luandarodrigues.github.io/heart-disease-risk-prediction/?v=5)**
+[Open the analytical dashboard](https://luandarodrigues.github.io/heart-disease-risk-prediction/)
 
-The dashboard was designed in a Power BI-inspired structure while keeping the same black, off-white and restrained accent palette used across the portfolio.
+## What this project shows
 
-It includes:
-
-- executive KPI cards;
-- bilingual PT/EN interface;
-- clinical variable dictionary;
-- clickable risk lens slicer;
-- clinical pattern comparison;
-- risk-factor group crossings;
-- model comparison between Logistic Regression and Random Forest;
-- feature-importance view translated into clinical meaning;
-- data quality flags;
-- responsible-use and clinical limitation view.
-
-## Analytical question
-
-How can structured clinical variables support exploratory risk stratification for heart disease, and what are the limits of this type of dataset when compared with current cardiovascular risk factors?
+- Reproducible pipeline outputs instead of one-off notebook results
+- Structured preprocessing with categorical encoding and numeric scaling
+- Side-by-side evaluation of Logistic Regression and Random Forest
+- Calibration, confusion-matrix, and threshold analysis
+- Explicit data-quality checks for suspicious clinical values
+- Clinical interpretation layer that separates model signal from real-world completeness
 
 ## Dataset
 
-The dataset includes age, sex, chest pain type, resting blood pressure, cholesterol, fasting blood sugar, resting ECG, maximum heart rate, exercise-induced angina, Oldpeak / ST depression, ST slope and the heart disease target variable.
+The project uses a structured heart disease dataset with:
 
-## Dataset overview
+- `918` records
+- `12` columns
+- `11` predictive variables
+- Binary target: `HeartDisease`
 
-| Metric | Value |
-|---|---:|
-| Records | 918 |
-| Columns | 12 |
-| Predictive variables | 11 |
-| Target prevalence | 55.3% |
-| Missing values | 0 |
-| Duplicates | 0 |
-| Cholesterol values equal to zero | 172 |
-| RestingBP values equal to zero | 1 |
+Available variables include age, sex, chest pain type, resting blood pressure, cholesterol, fasting blood sugar, resting ECG, maximum heart rate, exercise angina, Oldpeak, and ST slope.
 
-## Model results
+## Current model snapshot
 
 | Model | Accuracy | ROC-AUC | Precision | Recall | F1 |
 |---|---:|---:|---:|---:|---:|
 | Logistic Regression | 0.897 | 0.930 | 0.888 | 0.931 | 0.909 |
 | Random Forest | 0.897 | 0.932 | 0.881 | 0.941 | 0.910 |
 
-## Most relevant variables
+## Why this version is stronger
 
-Permutation importance suggested the strongest signals were related to:
+The repository now behaves more like a small analytical application than a loose ML exercise.
 
-| Technical variable | Clinical meaning |
-|---|---|
-| ST_Slope | ST segment slope at peak exercise; strongest stress-test ECG signal in the model |
-| ChestPainType | Chest pain presentation, including asymptomatic and angina categories |
-| Sex | Registered patient sex |
-| ExerciseAngina | Exercise-induced angina, indicating pain/discomfort triggered by effort |
-| Cholesterol | Serum cholesterol; interpreted with caution because the dataset contains zero values |
-| Oldpeak | Exercise-induced ST depression |
-| FastingBS | Binary marker for fasting blood sugar > 120 mg/dL |
-| RestingBP | Resting blood pressure before testing |
+- The pipeline is packaged under `src/`
+- The script entry point is preserved for easy execution
+- Tests validate the output contract used by the dashboard
+- The generated artifacts include:
+  - `model_metrics.csv`
+  - `feature_importance_permutation.csv`
+  - `data_quality_summary.csv`
+  - `rate_by_ChestPainType.csv`
+  - `rate_by_ExerciseAngina.csv`
+  - `rate_by_ST_Slope.csv`
+  - `calibration_by_model.csv`
+  - `confusion_matrix_summary.csv`
+  - `threshold_metrics.csv`
+  - `model_run_metadata.json`
 
-## Clinical pattern examples
-
-| Variable | Group | Heart disease rate |
-|---|---|---:|
-| ST_Slope | Flat | 82.8% |
-| ST_Slope | Down | 77.8% |
-| ST_Slope | Up | 19.7% |
-| ChestPainType | ASY | 79.0% |
-| ExerciseAngina | Yes | 85.2% |
-| ExerciseAngina | No | 35.1% |
-
-## Risk-factor coverage
-
-The dataset covers several important cardiovascular risk dimensions, including age, sex, blood pressure, cholesterol, fasting blood sugar and stress-test/ECG signals.
-
-However, it does not include several relevant factors used in current cardiovascular prevention discussions, such as smoking, BMI, physical activity, diet, sleep health, family history, medication use, kidney disease, socioeconomic determinants and access-to-care context.
-
-This is why the dashboard separates **model performance** from **clinical completeness**. A model can perform well on the available columns and still be incomplete for real-world cardiovascular risk assessment.
-
-## Methodology
-
-1. Data quality review
-2. Exploratory analysis by target variable
-3. Clinical pattern comparison
-4. Encoding of categorical variables
-5. Train/test split
-6. Logistic Regression baseline
-7. Random Forest comparison model
-8. Model evaluation with accuracy, ROC-AUC, precision, recall and F1
-9. Permutation importance for interpretability
-10. Clinical limitation and responsible-use analysis
-11. Dashboard development as a static analytical panel
-
-## Project structure
+## Repository structure
 
 ```text
 heart-disease-risk-prediction/
-├── README.md
-├── data/
-│   ├── heart.csv
-│   ├── model_metrics.csv
-│   ├── feature_importance_permutation.csv
-│   └── clinical_risk_factor_mapping_2026.csv
-├── docs/
-│   └── index.html
-└── project files, scripts and outputs
+|-- README.md
+|-- pyproject.toml
+|-- requirements.txt
+|-- data/
+|-- docs/
+|   `-- index.html
+|-- scripts/
+|   |-- _bootstrap.py
+|   `-- heart_disease_model.py
+|-- src/
+|   `-- heart_disease_risk_prediction/
+|       |-- __init__.py
+|       |-- cli.py
+|       `-- pipeline.py
+`-- tests/
+    `-- test_pipeline_outputs.py
 ```
 
-## Tools
+## How to run
 
-Python, Pandas, Scikit-learn, Matplotlib, HTML, CSS, JavaScript, Machine Learning, Classification, EDA, Model Evaluation, Health Analytics.
+### 1. Install dependencies
 
-## Ethical and clinical limitations
+```bash
+pip install -r requirements.txt
+```
 
-This model does not replace medical evaluation. It was trained on a historical combined dataset and requires external validation before any operational use. In a real health setting, performance, calibration, bias, interpretability, privacy, monitoring and clinical safety would need formal review.
+### 2. Run the pipeline
 
-The most useful outcome of this project is not a diagnostic prediction system. It is a transparent analytical workflow that connects clinical signals, model performance, missing risk dimensions and responsible interpretation.
+```bash
+python scripts/heart_disease_model.py data/heart.csv data
+```
+
+You can also use the package entry point:
+
+```bash
+heart-disease-pipeline data/heart.csv data
+```
+
+### 3. Run tests
+
+```bash
+pytest
+```
+
+## Pipeline steps
+
+1. Load the source dataset
+2. Split train and test with stratification
+3. Build a preprocessing pipeline for numeric and categorical variables
+4. Train Logistic Regression and Random Forest models
+5. Score both models on holdout data
+6. Export performance, calibration, threshold, and confusion outputs
+7. Export dashboard-ready descriptive summaries
+
+## Data-quality checks
+
+The project explicitly flags issues that matter in a healthcare dataset:
+
+- Missing cells
+- Duplicate rows
+- `RestingBP = 0`
+- `Cholesterol = 0`
+- `MaxHR = 0`
+
+This matters because apparent model performance can look strong even when source values contain implausible or coded placeholders.
+
+## Interpretability layer
+
+Permutation importance indicates the strongest signals are concentrated in:
+
+- `ST_Slope`
+- `ChestPainType`
+- `Sex`
+- `ExerciseAngina`
+- `Cholesterol`
+- `Oldpeak`
+
+The dashboard translates those technical variables into clinical meaning so the project reads like analytical work, not only code output.
+
+## Responsible-use position
+
+This repository should not be interpreted as a deployable clinical model.
+
+Key limitations:
+
+- No external validation
+- No subgroup fairness analysis
+- No prospective monitoring
+- No formal calibration governance in a clinical environment
+- Important modern cardiovascular risk factors are missing from the dataset
+
+That separation is intentional: strong portfolio work should show both what the model can do and where it stops being trustworthy.
+
+## Stack
+
+Python, Pandas, scikit-learn, pytest, HTML, CSS, JavaScript, GitHub Pages, machine learning evaluation, health analytics, and responsible AI framing.

@@ -1,0 +1,19 @@
+{
+  "source_file": "data\\heart.csv",
+  "train_rows": 734,
+  "test_rows": 184,
+  "models": [
+    "Logistic Regression",
+    "Random Forest"
+  ],
+  "rate_exports": [
+    "rate_by_ChestPainType.csv",
+    "rate_by_ExerciseAngina.csv",
+    "rate_by_ST_Slope.csv"
+  ],
+  "new_outputs": [
+    "calibration_by_model.csv",
+    "confusion_matrix_summary.csv",
+    "threshold_metrics.csv"
+  ]
+}
